@@ -2,17 +2,21 @@ import re
 
 
 class User:
-    def __init__(self, first_name):
+    def __init__(self, first_name, last_name):
         self.first_name = first_name
+        self.last_name = last_name
 
     def __str__(self):
-        return f"First Name: {self.first_name}"
+        return f"""
+            First Name: {self.first_name}
+            Last Name: {self.last_name}
+            """
 
 
 def get_input(field, pattern, error):
     while True:
         try:
-            value = input(f"Enter {field}:")
+            value = input(f"Enter {field} :")
             if not re.match(pattern, value):
                 raise ValueError(f"Error: {error}")
             return value
@@ -21,14 +25,21 @@ def get_input(field, pattern, error):
 
 
 def main():
-    first_name_pattern = "^[A-Z][a-z]{2,}$"
+    name_pattern = "^[A-Z][a-z]{2,}$"
     first_name = get_input(
         "First Name",
-        first_name_pattern,
+        name_pattern,
         "First Name should start with capital letter and length should be 3 characters minimum",
     )
 
-    user = User(first_name)
+    last_name = get_input(
+        "Last Name",
+        name_pattern,
+        "Last Name should start with capital letter and length should be 3 characters minimum",
+    )
+
+    user = User(first_name, last_name)
+
     print(user)
 
 
