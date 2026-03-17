@@ -2,11 +2,12 @@ import re
 
 
 class User:
-    def __init__(self, first_name, last_name, email, phone_number):
+    def __init__(self, first_name, last_name, email, phone_number, password):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.phone_number = phone_number
+        self.password = password
 
     def __str__(self):
         return f"""
@@ -14,6 +15,7 @@ class User:
             Last Name: {self.last_name}
             Email: {self.email}
             Phone Number: {self.phone_number}
+            Password: {self.password}
             """
 
 
@@ -32,6 +34,7 @@ def main():
     name_pattern = r"^[A-Z][a-z]{2,}$"
     email_pattern = r"[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]+)+"
     phone_pattern = r"^[1-9]\d{1,2}\s\d{7,12}$"
+    password_pattern = r"\w{8,}"
 
     first_name = get_input(
         "First Name",
@@ -74,7 +77,15 @@ def main():
         "Invalid phone number format. Please enter a valid phone number.",
     )
 
-    user = User(first_name, last_name, email, phone_number)
+    password = get_input(
+        "Password",
+        password_pattern,
+        """
+        Password should have a atleast 8 characters.
+        """,
+    )
+
+    user = User(first_name, last_name, email, phone_number, password)
 
     print(user)
 
