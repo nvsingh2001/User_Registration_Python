@@ -32,9 +32,10 @@ def get_input(field, pattern, error):
 
 def main():
     name_pattern = r"^[A-Z][a-z]{2,}$"
-    email_pattern = r"[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]+)+$"
-    phone_pattern = r"^[1-9]\d{1,2}\s\d{7,12}$"
 
+    # Updated pattern to clear all the sample emails.
+    email_pattern = r"[a-zA-Z0-9]+([\.+-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]+)+$"
+    phone_pattern = r"^[1-9]\d{1,2}\s\d{7,12}$"
     # Password should be minimum of 8 characters, should contain atleast 1 Upper case letter, Should have at least 1 numeric number, and should contain exactly one special character.
     password_pattern = r"^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%&^,=+\-!])(?!.*[@#$%&^,=+\-!].*[@#$%&^,=+\-!]).*[\w@#$%&^,=+\-!]{8,}$"
 
