@@ -35,8 +35,8 @@ def main():
     email_pattern = r"[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]+)+$"
     phone_pattern = r"^[1-9]\d{1,2}\s\d{7,12}$"
 
-    # Password should be minimum of 8 characters, should contain atleast 1 Upper case letter and Should have at least 1 numeric number
-    password_pattern = r"^(?=.*[A-Z])(?=.*[0-9]).*\w{8,}$"
+    # Password should be minimum of 8 characters, should contain atleast 1 Upper case letter, Should have at least 1 numeric number, and should contain exactly one special character.
+    password_pattern = r"^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%&^,=+\-!])(?!.*[@#$%&^,=+\-!].*[@#$%&^,=+\-!]).*[\w@#$%&^,=+\-!]{8,}$"
 
     first_name = get_input(
         "First Name",
@@ -86,6 +86,7 @@ def main():
         Password should have a atleast 8 characters.
         It should contain atleast one Uppercase letter.
         It should contain atleast one numberic number.
+        It should contain exactly one special character.
         """,
     )
 
