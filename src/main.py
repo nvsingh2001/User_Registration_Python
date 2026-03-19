@@ -1,98 +1,25 @@
-import re
-
-
-class User:
-    def __init__(self, first_name, last_name, email, phone_number, password):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.phone_number = phone_number
-        self.password = password
-
-    def __str__(self):
-        return f"""
-            First Name: {self.first_name}
-            Last Name: {self.last_name}
-            Email: {self.email}
-            Phone Number: {self.phone_number}
-            Password: {self.password}
-            """
-
-
-def get_input(field, pattern, error):
-    while True:
-        try:
-            value = input(f"Enter {field} :")
-            if not re.match(pattern, value):
-                raise ValueError(f"Error: {error}")
-            return value
-        except ValueError as e:
-            print(e)
+from models.user import User
+from utils.validation import (
+    NAME_PATTERN,
+    NAME_ERROR,
+    EMAIL_PATTERN,
+    EMAIL_ERROR,
+    PHONE_PATTERN,
+    PHONE_ERROR,
+    PASSWORD_PATTERN,
+    PASSWORD_ERROR,
+)
+from utils.input_handler import get_input
 
 
 def main():
-    name_pattern = r"^[A-Z][a-z]{2,}$"
-
-    # Updated pattern to clear all the sample emails.
-    email_pattern = r"[a-zA-Z0-9]+([\.+-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]+)+$"
-    phone_pattern = r"^[1-9]\d{1,2}\s\d{7,12}$"
-    # Password should be minimum of 8 characters, should contain atleast 1 Upper case letter, Should have at least 1 numeric number, and should contain exactly one special character.
-    password_pattern = r"^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%&^,=+\-!])(?!.*[@#$%&^,=+\-!].*[@#$%&^,=+\-!]).*[\w@#$%&^,=+\-!]{8,}$"
-
-    first_name = get_input(
-        "First Name",
-        name_pattern,
-        "First Name should start with capital letter and length should be 3 characters minimum",
-    )
-
-    last_name = get_input(
-        "Last Name",
-        name_pattern,
-        "Last Name should start with capital letter and length should be 3 characters minimum",
-    )
-
-    email = get_input(
-        "Email",
-        email_pattern,
-        """
-            Invalid email format.
-
-            Please enter an email in the format:
-
-            username@domain.extension
-
-            Rules:
-
-            * The username may contain letters and numbers.
-            * Dots are allowed in the username but cannot appear at the start, end, or consecutively.
-            * The domain may contain at least one dot.
-            * Domain extensions must contain letters only.
-
-            Example of valid emails:
-            john@example.com
-            john.doe123@mail.google.com
-        """,
-    )
-
-    phone_number = get_input(
-        "Phone Number",
-        phone_pattern,
-        "Invalid phone number format. Please enter a valid phone number.",
-    )
-
-    password = get_input(
-        "Password",
-        password_pattern,
-        """
-        Password should have a atleast 8 characters.
-        It should contain atleast one Uppercase letter.
-        It should contain atleast one numberic number.
-        It should contain exactly one special character.
-        """,
-    )
+    first_name = get_input("First Name", NAME_PATTERN, f"First Name {NAME_ERROR}")
+    last_name = get_input("Last Name", NAME_PATTERN, f"Last Name {NAME_ERROR}")
+    email = get_input("Email", EMAIL_PATTERN, EMAIL_ERROR)
+    phone_number = get_input("Phone Number", PHONE_PATTERN, PHONE_ERROR)
+    password = get_input("Password", PASSWORD_PATTERN, PASSWORD_ERROR)
 
     user = User(first_name, last_name, email, phone_number, password)
-
     print(user)
 
 
