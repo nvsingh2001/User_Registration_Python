@@ -6,10 +6,8 @@ def test_get_input_retry_logic(monkeypatch):
     inputs = iter(["jo", "John"])
     printed = []
 
-    monkeypatch.setattr("src.utils.input_handler.input", lambda _: next(inputs))
-    monkeypatch.setattr(
-        "src.utils.input_handler.print", lambda *args, **kwargs: printed.append(args)
-    )
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    monkeypatch.setattr("builtins.print", lambda *args, **kwargs: printed.append(args))
 
     result = get_input("First Name", NAME_PATTERN, NAME_ERROR)
 
